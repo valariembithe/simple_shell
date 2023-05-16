@@ -29,4 +29,8 @@ void *_strtok(char str[], const char *delim);
 int cmp_chars(char str[], const char *delim);
 int _strlen(const char *s);
 char *_strdup(const char *s);
+
+/* memory.c memory functions */
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void _memcpy(void *newptr, const void *ptr, unsigned int size);
 #endif
