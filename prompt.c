@@ -1,11 +1,15 @@
 #include "main.h"
+/*
+ * main- create a prompt on shell
+ * Description: create prompt
+ */
 
 int main(int ac, char **argv)
 {
-	char *prompt = "shell:$ ";
+	char *prompt = "$ ";
 	char *lineptr = NULL;
 	size_t n = 0;
-	ssize_t executable;
+	ssize_t charsread;
 	const char *delim = " \n"; /* space and new line character */
 	char *lineptr_copy = NULL;
 	char *token;
@@ -18,9 +22,9 @@ int main(int ac, char **argv)
 	while (1)
 	{
 		printf("%s", prompt);
-		charsread = getline(&lineptr, &n, stdin);
+		charsread = get_line(&lineptr, &n, stdin);
 		/* check if getline function reaches EOF/ CTRL + D */
-		if (executable == -1)
+		if (charsread == -1)
 		{
 			printf("Exit shell\n");
 			return (-1);
@@ -32,7 +36,7 @@ int main(int ac, char **argv)
                 	perror("memory allocation failed");
                 	return (-1);
         	}
-        	strcpy(lineptr_copy, lineptr);
+        	_strcpy(lineptr_copy, lineptr);
         	/* split string lineptr into array of strings */
         	token = strtok(lineptr, delim);
 		/* number of tokens */
@@ -47,8 +51,8 @@ int main(int ac, char **argv)
 
 		for (i = 0; token != NULL; i++)
 		{
-			argv[i] = malloc(sizeof(char) * strlen(token));
-			strcpy(argv[i], token);
+			argv[i] = malloc(sizeof(char) * _strlen(token));
+			_strcpy(argv[i], token);
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
@@ -57,8 +61,8 @@ int main(int ac, char **argv)
 	}
 	/* printf("%s\n", lineptr); */
 	/* free allocated memory */
-	free(lineptr);
 	free(lineptr_copy);
+	free(lineptr);
 
 	return (0);
 }

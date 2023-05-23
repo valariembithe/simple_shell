@@ -4,15 +4,18 @@
  */
 void execommand(char **argv)
 {
-	char *cmd = NULL;
+	char *command = NULL;
+	char *real_command = NULL;
 
 	if (argv)
 	{
-		cmd = argv[0];
+		command = argv[0];
+		/* generate path of command */
+		real_command = get_location(command);
 		/* execute command */
-		if (execve(cmd, argv, NULL) == -1)
+		if (execve(real_command, argv, NULL) == -1)
 		{
-			perror("Error");
+			perror("Error:");
 		}
 	}
 }
