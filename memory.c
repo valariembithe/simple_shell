@@ -9,34 +9,31 @@
  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	char *reallo, *clone;
-	unsigned int i;
+	void *newptr;
 
-	if (new_size == old_size)
-		return (ptr);
-	if (ptr != NULL)
-		clone = ptr;
-	else
-	{
+	if (ptr == NULL)
 		return (malloc(new_size));
-	}
-	if (new_size == old_size)
-		return (ptr);
-	if (new_size == 0 && ptr != NULL)
+
+	if (new_size == 0)
 	{
 		free(ptr);
 		return (NULL);
 	}
-	reallo = malloc(new_size);
-	if (reallo == NULL)
-		return (0);
-	for (i = 0; i < old_size || i < new_size; i++)
-	{
-		*(reallo + i) = clone[i];
-	}
-	free(ptr);
 
-	return (reallo);
+	if (new_size == old_size)
+		return (ptr);
+
+	newptr = malloc(new_size);
+	if (newptr == NULL)
+		return (NULL);
+
+	if (new_size < old_size)
+		_memcpy(newptr, ptr, new_size);
+	else
+		_memcpy(newptr, ptr, old_size);
+
+	free(ptr);
+	return (newptr);
 }
 /**
  * _memcpy - copies information between void pointers.

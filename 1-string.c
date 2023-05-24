@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 /**
  * _strcpy - copies string to dest in src
  * @dest: destination of string copied
@@ -31,30 +31,10 @@ char *_strcat(char *dest, const char *src)
 	for (j = 0; src[j] != '\0'; j++)
 	{
 		dest[i] = src[j];
-		i++
+		i++;
 	}
 	dest[i] = '\0';
 	return (dest);
-}
-
-/**
- * _strchr - locates a character
- * @s: string
- * @c: character
- * Return: pointer to first occurrence of c
- */
-char *_strchr(char *s, char c)
-{
-	unsigned int j;
-
-	for (; (s + j) != '\0'; j++)
-	{
-		if (*(s + j) == c)
-			return (s + j);
-	}
-	if ((*s + j) == c)
-		return (s + j);
-	return ('\0');
 }
 
 /**
@@ -100,7 +80,26 @@ int _strspn(char *s, char *accept)
 			}
 		}
 		if (k == 1)
+		{
 			;
+		}
 	}
 	return (i);
+}
+/**
+ * _isdigit - defines if string passed is a number
+ *
+ * @s: input string
+ * Return: 1 if string is a number. 0 in other case.
+ */
+int _isdigit(const char *s)
+{
+	unsigned int i;
+
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] < 48 || s[i] > 57)
+			return (0);
+	}
+	return (1);
 }
