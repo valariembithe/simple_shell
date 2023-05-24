@@ -22,7 +22,7 @@ int main(int ac, char **argv)
 	while (1)
 	{
 		printf("%s", prompt);
-		charsread = get_line(&lineptr, &n, stdin);
+		charsread = getline(&lineptr, &n, stdin);
 		/* check if getline function reaches EOF/ CTRL + D */
 		if (charsread == -1)
 		{
@@ -36,7 +36,7 @@ int main(int ac, char **argv)
                 	perror("memory allocation failed");
                 	return (-1);
         	}
-        	_strcpy(lineptr_copy, lineptr);
+        	strcpy(lineptr_copy, lineptr);
         	/* split string lineptr into array of strings */
         	token = strtok(lineptr, delim);
 		/* number of tokens */
@@ -51,8 +51,8 @@ int main(int ac, char **argv)
 
 		for (i = 0; token != NULL; i++)
 		{
-			argv[i] = malloc(sizeof(char) * _strlen(token));
-			_strcpy(argv[i], token);
+			argv[i] = malloc(sizeof(char) * strlen(token));
+			strcpy(argv[i], token);
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
