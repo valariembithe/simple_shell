@@ -68,6 +68,18 @@ char *_strtok(char str[], const char *delim);
 /* memory.c memory functions */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
+<<<<<<< HEAD
+typedef struct data
+{
+	char **av;
+	char *input;
+	char **args;
+	int status;
+	int counter;
+	char **_environ;
+	char *pid;
+} data_shell;
+=======
 
 /* get_location.c */
 char *get_location(char *command);
@@ -102,4 +114,5 @@ int get_error(datash *datashell, int eval);
 int _atoi(char *s);
 int get_len(int n);
 char *_itoa(int n);
+>>>>>>> 53e64207a2efd1e14dcc4e6ac9d13261890b4901
 #endif
