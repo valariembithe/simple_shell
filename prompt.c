@@ -63,6 +63,7 @@ int main(int ac, char **argv)
 	/* free allocated memory */
 	free(lineptr_copy);
 	free(lineptr);
+	free(argv);
 
 	return (0);
 }
