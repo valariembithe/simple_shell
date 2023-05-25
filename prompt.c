@@ -57,16 +57,15 @@ int main(int ac, char **argv)
 			printf("Exit shell\n");
 			return (-1);
 		}
-	
 		lineptr_copy = malloc(sizeof(char) * charsread);
-        	if (lineptr_copy == NULL)
-        	{
-                	perror("memory allocation failed");
-                	return (-1);
-        	}
-        	strcpy(lineptr_copy, lineptr);
-        	/* split string lineptr into array of strings */
-        	token = strtok(lineptr, delim);
+		if (lineptr_copy == NULL)
+		{
+		perror("memory allocation failed");
+		return (-1);
+		}
+		strcpy(lineptr_copy, lineptr);
+		/* split string lineptr into array of strings */
+		token = strtok(lineptr, delim);
 		/* number of tokens */
 		while (token != NULL)
 		{
