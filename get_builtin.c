@@ -52,7 +52,7 @@ int _mycd(info_t *info)
 			chdir_ret = /* ToDo what should this be */
 				chdir((directory = _getenv(info, "PWD=")) ? directory : "/");
 		else
-			chdir_ret = chdir(dir);
+			chdir_ret = chdir(directory);
 	}
 	else if (_strcmp(info->argv[1], "-") == 0)
 	{
