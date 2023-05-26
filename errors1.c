@@ -2,7 +2,7 @@
 
 /**
  * _erratoi - converts string to an integer
- * @s: the string 
+ * @s: the string
  * Return: 0 if false, else converted number otherwise
  *       -1 on failure
  */

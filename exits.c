@@ -34,7 +34,7 @@ char *_strncpy(char *dest, char *src, int n)
  * *_strncat - concatenates two strings
  * @dest: string one
  * @src: string two
- * @n: the number of bytes 
+ * @n: the number of bytes
  * Return: concatenated str
  */
 char *_strncat(char *dest, char *src, int n)
