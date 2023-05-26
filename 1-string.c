@@ -2,9 +2,9 @@
 
 /**
  * _strcat - concatenate two strings
- * @dest: char pointer the dest of the copied str
- * @src: const char pointer the source of str
- * Return: the dest
+ * @dest: destination of the copied string
+ * @src: source of string to be copied
+ * Return: the destination
  */
 char *_strcat(char *dest, const char *src)
 {
@@ -12,7 +12,7 @@ char *_strcat(char *dest, const char *src)
 	int j;
 
 	for (i = 0; dest[i] != '\0'; i++)
-		;
+		break;
 
 	for (j = 0; src[j] != '\0'; j++)
 	{
@@ -24,28 +24,29 @@ char *_strcat(char *dest, const char *src)
 	return (dest);
 }
 /**
- * *_strcpy - Copies the string pointed to by src.
- * @dest: Type char pointer the dest of the copied str
- * @src: Type char pointer the source of str
- * Return: the dest.
+ * *_strcpy - Copies the string
+ * @dest: the destination of copied string
+ * @src: the source of string to be copied
+ * Return: the destination
  */
 char *_strcpy(char *dest, char *src)
 {
 
-	size_t a;
+	size_t i;
 
-	for (a = 0; src[a] != '\0'; a++)
+	for i = 0; src[i] != '\0'; i++)
 	{
-		dest[a] = src[a];
+		dest[i] = src[i];
 	}
-	dest[a] = '\0';
+	dest[i] = '\0';
 
 	return (dest);
 }
 /**
- * _strcmp - Function that compares two strings.
- * @s1: type str compared
- * @s2: type str compared
+ * _strcmp - compares two strings, s1 and s2
+ * @s1: string one
+ * @s2: string 2
+ *
  * Return: Always 0.
  */
 int _strcmp(char *s1, char *s2)
@@ -53,47 +54,46 @@ int _strcmp(char *s1, char *s2)
 	int i;
 
 	for (i = 0; s1[i] == s2[i] && s1[i]; i++)
-		;
+		break;
 
-	if (s1[i] > s2[i])
-		return (1);
 	if (s1[i] < s2[i])
 		return (-1);
+	if (s1[i] > s2[i])
+		return (1);
 	return (0);
 }
 /**
- * _strchr - locates a character in a string,
- * @s: string.
- * @c: character.
- * Return: the pointer to the first occurrence of the character c.
+ * _strchr - locates a character in a s
+ * @s: string to iterate
+ * @c: character located
+ * Return: a pointer to first occurrence of  c in s
  */
 char *_strchr(char *s, char c)
 {
-	unsigned int i = 0;
+	unsigned int j;
 
-	for (; *(s + i) != '\0'; i++)
-		if (*(s + i) == c)
-			return (s + i);
-	if (*(s + i) == c)
-		return (s + i);
-	return ('\0');
+	for (j = 0; *(s + j) != '\0'; j++)
+		if (*(s + j) == c)
+			return (s + j);
+	if (*(s + j) == c)
+		return (s + j);
 }
 /**
- * _strspn - gets the length of a prefix substring.
- * @s: initial segment.
- * @accept: accepted bytes.
- * Return: the number of accepted bytes.
+ * _strspn - length of prefix substring
+ * @s: initial
+ * @accept: accepted bytes in s
+ * Return: the number of bytes.
  */
 int _strspn(char *s, char *accept)
 {
 	int i, j, bool;
 
-	for (i = 0; *(s + i) != '\0'; i++)
+	for (j = 0; *(s + j) != '\0'; j++)
 	{
 		bool = 1;
-		for (j = 0; *(accept + j) != '\0'; j++)
+		for (i = 0; *(accept + i) != '\0'; i++)
 		{
-			if (*(s + i) == *(accept + j))
+			if (*(s + j) == *(accept + i))
 			{
 				bool = 0;
 				break;
@@ -102,5 +102,5 @@ int _strspn(char *s, char *accept)
 		if (bool == 1)
 			break;
 	}
-	return (i);
+	return (j);
 }

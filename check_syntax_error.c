@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * repeated_char - counts the repetitions of a char
+ * repeated_char - counts the repetitions.
  *
- * @input: input string
- * @i: index
+ * @input: string
+ * @i: index loop
  * Return: repetitions
  */
 int repeated_char(char *input, int i)
@@ -18,62 +18,62 @@ int repeated_char(char *input, int i)
 /**
  * error_sep_op - finds syntax errors
  *
- * @input: input string
- * @i: index
- * @last: last char read
- * Return: index of error. 0 when there are no
- * errors
+ * @input: string input
+ * @i: index loop
+ * @last: last char
+ *
+ * Return: index of error else 0 when there are no
  */
 int error_sep_op(char *input, int i, char last)
 {
-	int count;
+	int k;
 
-	count = 0;
+	k = 0;
 	if (*input == '\0')
 		return (0);
 
 	if (*input == ' ' || *input == '\t')
-		return (error_sep_op(input + 1, i + 1, last));
+		return (error_sep_op(input + 1, k + 1, last));
 
 	if (*input == ';')
 		if (last == '|' || last == '&' || last == ';')
-			return (i);
+			return (k);
 
 	if (*input == '|')
 	{
 		if (last == ';' || last == '&')
-			return (i);
+			return (k);
 
 		if (last == '|')
 		{
 			count = repeated_char(input, 0);
 			if (count == 0 || count > 1)
-				return (i);
+				return (k);
 		}
 	}
 
 	if (*input == '&')
 	{
 		if (last == ';' || last == '|')
-			return (i);
+			return (k);
 
 		if (last == '&')
 		{
 			count = repeated_char(input, 0);
 			if (count == 0 || count > 1)
-				return (i);
+				return (k);
 		}
 	}
 
-	return (error_sep_op(input + 1, i + 1, *input));
+	return (error_sep_op(input + 1, k + 1, *input));
 }
 
 /**
- * first_char - finds index of the first char
+ * first_char - finds index
+ * @input: string input
+ * @i: index loop
  *
- * @input: input string
- * @i: index
- * Return: 1 if there is an error. 0 in other case.
+ * Return: 1 if there is an error else 0 in other case.
  */
 int first_char(char *input, int *i)
 {
@@ -93,18 +93,18 @@ int first_char(char *input, int *i)
 }
 
 /**
- * print_syntax_error - prints when a syntax error is found
- *
+ * print_syntax_error - prints when a syntax error
  * @datash: data structure
- * @input: input string
- * @i: index of the error
- * @bool: to control msg error
+ * @input: string input
+ * @i: index of error
+ * @bool: control msg error
+ *
  * Return: no return
  */
 void print_syntax_error(data_shell *datash, char *input, int i, int bool)
 {
 	char *msg, *msg2, *msg3, *error, *counter;
-	int length;
+	int len;
 
 	if (input[i] == ';')
 	{
@@ -123,10 +123,10 @@ void print_syntax_error(data_shell *datash, char *input, int i, int bool)
 	msg2 = ": Syntax error: \"";
 	msg3 = "\" unexpected\n";
 	counter = aux_itoa(datash->counter);
-	length = _strlen(datash->av[0]) + _strlen(counter);
-	length += _strlen(msg) + _strlen(msg2) + _strlen(msg3) + 2;
+	len = _strlen(datash->av[0]) + _strlen(counter);
+	len += _strlen(msg) + _strlen(msg2) + _strlen(msg3) + 2;
 
-	error = malloc(sizeof(char) * (length + 1));
+	error = malloc(sizeof(char) * (len + 1));
 	if (error == 0)
 	{
 		free(counter);
@@ -146,30 +146,29 @@ void print_syntax_error(data_shell *datash, char *input, int i, int bool)
 }
 
 /**
- * check_syntax_error - intermediate function to
- * find and print a syntax error
+ * check_syntax_error - find and print a syntax error
  *
  * @datash: data structure
- * @input: input string
- * Return: 1 if there is an error. 0 in other case
+ * @input: string input
+ * Return: 1 if there is an error else 0 in other case
  */
 int check_syntax_error(data_shell *datash, char *input)
 {
-	int begin = 0;
+	int start = 0;
 	int f_char = 0;
 	int i = 0;
 
-	f_char = first_char(input, &begin);
+	f_char = first_char(input, &start);
 	if (f_char == -1)
 	{
-		print_syntax_error(datash, input, begin, 0);
+		print_syntax_error(datash, input, start, 0);
 		return (1);
 	}
 
-	i = error_sep_op(input + begin, 0, *(input + begin));
+	i = error_sep_op(input + start, 0, *(input + start));
 	if (i != 0)
 	{
-		print_syntax_error(datash, input, begin + i, 1);
+		print_syntax_error(datash, input, start + i, 1);
 		return (1);
 	}
 

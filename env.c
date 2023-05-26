@@ -1,58 +1,56 @@
 #include "shell.h"
 
 /**
- * cmp_env_name - compares env variables names
- * with the name passed.
+ * compare_env_name - compares env names
  * @nenv: name of the environment variable
- * @name: name passed
- *
- * Return: 0 if are not equal. Another value if they are.
+ * @name: the name.
+ * Return: 0 if are not equal. otherwise another value
  */
-int cmp_env_name(const char *nenv, const char *name)
+int compare_env_name(const char *nenv, const char *name)
 {
-	int i;
+	int j;
 
-	for (i = 0; nenv[i] != '='; i++)
+	for (j = 0; nenv[j] != '='; j++)
 	{
-		if (nenv[i] != name[i])
+		if (nenv[j] != name[j])
 		{
 			return (0);
 		}
 	}
 
-	return (i + 1);
+	return (j + 1);
 }
 
 /**
- * _getenv - get an environment variable
- * @name: name of the environment variable
- * @_environ: environment variable
+ * _getenv - get an environment variable.
+ * @name: name of  environment variable.
+ * @_environ: env variable.
  *
- * Return: value of the environment variable if is found.
- * In other case, returns NULL.
+ * Return: value of environment variable if found.
+ * otherwise return NULL.
  */
 char *_getenv(const char *name, char **_environ)
 {
-	char *ptr_env;
-	int i, mov;
+	char *ptr;
+	int i, j;
 
-	/* Initialize ptr_env value */
-	ptr_env = NULL;
-	mov = 0;
-	/* Compare all environment variables */
-	/* environ is declared in the header file */
+	/* Initialize ptr value */
+	ptr = NULL;
+	j = 0;
+	/* Compare all env variables */
+	/* environ is declared in header file */
 	for (i = 0; _environ[i]; i++)
 	{
 		/* If name and env are equal */
-		mov = cmp_env_name(_environ[i], name);
-		if (mov)
+		j = compare_env_name(_environ[i], name);
+		if (j)
 		{
-			ptr_env = _environ[i];
+			ptr = _environ[i];
 			break;
 		}
 	}
 
-	return (ptr_env + mov);
+	return (ptr + j);
 }
 
 /**
@@ -65,13 +63,13 @@ int _env(data_shell *datash)
 {
 	int i, j;
 
-	for (i = 0; datash->_environ[i]; i++)
+	for (j = 0; datash->_environ[j]; j++)
 	{
 
-		for (j = 0; datash->_environ[i][j]; j++)
-			;
+		for (i = 0; datash->_environ[j][i]; i++)
+			break;
 
-		write(STDOUT_FILENO, datash->_environ[i], j);
+		write(STDOUT_FILENO, datash->_environ[j], i);
 		write(STDOUT_FILENO, "\n", 1);
 	}
 	datash->status = 0;

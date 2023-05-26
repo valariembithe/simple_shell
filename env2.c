@@ -1,66 +1,65 @@
 #include "shell.h"
 
 /**
- * copy_info - copies info to create
+ * copy_info - copies info to
  * a new env or alias
  * @name: name (env or alias)
- * @value: value (env or alias)
+ * @value: value (env or alias).
  *
  * Return: new env or alias.
  */
 char *copy_info(char *name, char *value)
 {
-	char *new;
-	int len_name, len_value, len;
+	char *dup;
+	int len_name, len_val, length;
 
 	len_name = _strlen(name);
-	len_value = _strlen(value);
-	len = len_name + len_value + 2;
-	new = malloc(sizeof(char) * (len));
+	len_val = _strlen(value);
+	length = len_name + len_value + 2;
+	dup = malloc(sizeof(char) * (length));
 	_strcpy(new, name);
 	_strcat(new, "=");
 	_strcat(new, value);
 	_strcat(new, "\0");
 
-	return (new);
+	return (dup);
 }
 
 /**
  * set_env - sets an environment variable
- *
- * @name: name of the environment variable
- * @value: value of the environment variable
+ * @name: name of environment variable
+ * @value: value of environment variable
  * @datash: data structure (environ)
  * Return: no return
  */
 void set_env(char *name, char *value, data_shell *datash)
 {
-	int i;
-	char *var_env, *name_env;
+	int j;
+	char *variable_env, *name_env;
 
-	for (i = 0; datash->_environ[i]; i++)
+	for (j = 0; datash->_environ[j]; j++)
 	{
-		var_env = _strdup(datash->_environ[i]);
-		name_env = _strtok(var_env, "=");
+		variable_env = _strdup(datash->_environ[j]);
+		name_env = _strtok(variable_env, "=");
 		if (_strcmp(name_env, name) == 0)
 		{
-			free(datash->_environ[i]);
-			datash->_environ[i] = copy_info(name_env, value);
-			free(var_env);
+			free(datash->_environ[j]);
+			datash->_environ[j] = copy_info(name_env, value);
+			free(variable_env);
 			return;
 		}
-		free(var_env);
+		free(variable_env);
 	}
 
-	datash->_environ = _reallocdp(datash->_environ, i, sizeof(char *) * (i + 2));
-	datash->_environ[i] = copy_info(name, value);
-	datash->_environ[i + 1] = NULL;
+	datash->_environ = _reallocdp(datash->_environ, i, sizeof(char *) * (j + 2));
+	datash->_environ[j] = copy_info(name, value);
+	datash->_environ[j + 1] = NULL;
 }
 
 /**
- * _setenv - compares env variables names
- * with the name passed.
- * @datash: data relevant (env name and env value)
+ * _setenv - compares env variables
+ * with the name passed
+ * @datash: data relevant (env value and env name)
  *
  * Return: 1 on success.
  */
@@ -88,7 +87,7 @@ int _setenv(data_shell *datash)
 int _unsetenv(data_shell *datash)
 {
 	char **realloc_environ;
-	char *var_env, *name_env;
+	char *variable_env, *name_env;
 	int i, j, k;
 
 	if (datash->args[1] == NULL)
@@ -99,13 +98,13 @@ int _unsetenv(data_shell *datash)
 	k = -1;
 	for (i = 0; datash->_environ[i]; i++)
 	{
-		var_env = _strdup(datash->_environ[i]);
-		name_env = _strtok(var_env, "=");
+		variable_env = _strdup(datash->_environ[i]);
+		name_env = _strtok(variable_env, "=");
 		if (_strcmp(name_env, datash->args[1]) == 0)
 		{
 			k = i;
 		}
-		free(var_env);
+		free(variable_env);
 	}
 	if (k == -1)
 	{

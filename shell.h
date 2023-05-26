@@ -16,36 +16,35 @@
 #define TOK_BUFSIZE 128
 #define TOK_DELIM " \t\r\n\a"
 
-/* Points to an array of pointers to strings called the "environment" */
+/* Points to an array of pointers to environment */
 extern char **environ;
 
-
 /**
- * struct data - struct that contains all relevant data on runtime
+ * struct data - contains all relevant data
  * @av: argument vector
- * @input: command line written by the user
- * @args: tokens of the command line
- * @status: last status of the shell
+ * @input: command line written
+ * @args: tokens of command line
+ * @status: last status of shell
  * @counter: lines counter
  * @_environ: environment variable
  * @pid: process ID of the shell
  */
 typedef struct data
 {
-	char **av;
-	char *input;
 	char **args;
+	char *pid;
+	char **av;
 	int status;
 	int counter;
 	char **_environ;
-	char *pid;
+	char *input;
 } data_shell;
 
 /**
  * struct sep_list_s - single linked list
  * @separator: ; | &
- * @next: next node
- * Description: single linked list to store separators
+ * @next: next node of linked list
+ * Description: single linked list for separators
  */
 typedef struct sep_list_s
 {
@@ -57,7 +56,7 @@ typedef struct sep_list_s
  * struct line_list_s - single linked list
  * @line: command line
  * @next: next node
- * Description: single linked list to store command lines
+ * Description: single linked list for command lines
  */
 typedef struct line_list_s
 {
@@ -67,24 +66,24 @@ typedef struct line_list_s
 
 /**
  * struct r_var_list - single linked list
- * @len_var: length of the variable
- * @val: value of the variable
- * @len_val: length of the value
- * @next: next node
- * Description: single linked list to store variables
+ * @len_val: value length
+ * @val: variable value
+ * @len_var: variable length
+ * @next: next node of list
+ * Description: single linked list for variables
  */
 typedef struct r_var_list
 {
-	int len_var;
-	char *val;
 	int len_val;
+	char *val;
+	int len_var;
 	struct r_var_list *next;
 } r_var;
 
 /**
- * struct builtin_s - Builtin struct for command args.
- * @name: The name of the command builtin i.e cd, exit, env
- * @f: data type pointer function.
+ * struct builtin_s - Builtin struct for command args
+ * @name: The name of command builtin i.e cd, env
+ * @f: pointer to function.
  */
 typedef struct builtin_s
 {
@@ -92,36 +91,36 @@ typedef struct builtin_s
 	int (*f)(data_shell *datash);
 } builtin_t;
 
-/* aux_lists.c */
-sep_list *add_sep_node_end(sep_list **head, char sep);
+/* lists.c functions */
+sep_list *add_sep_end(sep_list **head, char sep);
 void free_sep_list(sep_list **head);
-line_list *add_line_node_end(line_list **head, char *line);
+line_list *add_line_end(line_list **head, char *line);
 void free_line_list(line_list **head);
 
-/* aux_lists2.c */
+/* lists2.c functions */
 r_var *add_rvar_node(r_var **head, int lvar, char *var, int lval);
 void free_rvar_list(r_var **head);
 
-/* aux_str functions */
+/* 1-string functions */
 char *_strcat(char *dest, const char *src);
 char *_strcpy(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 char *_strchr(char *s, char c);
 int _strspn(char *s, char *accept);
 
-/* aux_mem.c */
+/* memory.c functions */
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size);
 
-/* aux_str2.c */
+/* 2-string.c functions */
 char *_strdup(const char *s);
 int _strlen(const char *s);
 int cmp_chars(char str[], const char *delim);
 char *_strtok(char str[], const char *delim);
 int _isdigit(const char *s);
 
-/* aux_str3.c */
+/*3-string.c */
 void rev_string(char *s);
 
 /* check_syntax_error.c */
