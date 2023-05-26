@@ -1,1 +1,2 @@
-This is a group project on building a Simple Shell.
+# simple_shell
+A project on building simple working shell
