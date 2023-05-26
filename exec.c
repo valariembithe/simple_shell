@@ -100,7 +100,7 @@ int is_executable(data_shell *datash)
 		{
 			if (input[j + 1] == '.')
 				continue;
-			i++;
+			j++;
 			break;
 		}
 		else
@@ -134,7 +134,7 @@ int check_error_cmd(char *directory, data_shell *datash)
 
 	if (_strcmp(datash->args[0], directory) != 0)
 	{
-		if (access(dir, X_OK) == -1)
+		if (access(directory, X_OK) == -1)
 		{
 			get_error(datash, 126);
 			free(directory);
@@ -186,7 +186,7 @@ int cmd_exec(data_shell *datash)
 			directory = _which(datash->args[0], datash->_environ);
 		else
 			directory = datash->args[0];
-		execve(dir + exec, datash->args, datash->_environ);
+		execve(directory + exec, datash->args, datash->_environ);
 	}
 	else if (pd < 0)
 	{

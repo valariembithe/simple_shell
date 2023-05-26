@@ -15,12 +15,12 @@ char *copy_info(char *name, char *value)
 
 	len_name = _strlen(name);
 	len_val = _strlen(value);
-	length = len_name + len_value + 2;
+	length = len_name + len_val + 2;
 	dup = malloc(sizeof(char) * (length));
-	_strcpy(new, name);
-	_strcat(new, "=");
-	_strcat(new, value);
-	_strcat(new, "\0");
+	_strcpy(dup, name);
+	_strcat(dup, "=");
+	_strcat(dup, value);
+	_strcat(dup, "\0");
 
 	return (dup);
 }
@@ -51,7 +51,7 @@ void set_env(char *name, char *value, data_shell *datash)
 		free(variable_env);
 	}
 
-	datash->_environ = _reallocdp(datash->_environ, i, sizeof(char *) * (j + 2));
+	datash->_environ = _reallocdp(datash->_environ, j, sizeof(char *) * (j + 2));
 	datash->_environ[j] = copy_info(name, value);
 	datash->_environ[j + 1] = NULL;
 }

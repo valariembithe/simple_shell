@@ -34,7 +34,7 @@ char *_strcpy(char *dest, char *src)
 
 	size_t i;
 
-	for i = 0; src[i] != '\0'; i++)
+	for (i = 0; src[i] != '\0'; i++)
 	{
 		dest[i] = src[i];
 	}
@@ -77,6 +77,7 @@ char *_strchr(char *s, char c)
 			return (s + j);
 	if (*(s + j) == c)
 		return (s + j);
+	return ('\0');
 }
 /**
  * _strspn - length of prefix substring

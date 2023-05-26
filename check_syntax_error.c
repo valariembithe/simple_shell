@@ -33,39 +33,39 @@ int error_sep_op(char *input, int i, char last)
 		return (0);
 
 	if (*input == ' ' || *input == '\t')
-		return (error_sep_op(input + 1, k + 1, last));
+		return (error_sep_op(input + 1, i + 1, last));
 
 	if (*input == ';')
 		if (last == '|' || last == '&' || last == ';')
-			return (k);
+			return (i);
 
 	if (*input == '|')
 	{
 		if (last == ';' || last == '&')
-			return (k);
+			return (i);
 
 		if (last == '|')
 		{
-			count = repeated_char(input, 0);
-			if (count == 0 || count > 1)
-				return (k);
+			k = repeated_char(input, 0);
+			if (k == 0 || k > 1)
+				return (i);
 		}
 	}
 
 	if (*input == '&')
 	{
 		if (last == ';' || last == '|')
-			return (k);
+			return (i);
 
 		if (last == '&')
 		{
-			count = repeated_char(input, 0);
-			if (count == 0 || count > 1)
-				return (k);
+			k = repeated_char(input, 0);
+			if (k == 0 || k > 1)
+				return (i);
 		}
 	}
 
-	return (error_sep_op(input + 1, k + 1, *input));
+	return (error_sep_op(input + 1, i + 1, *input));
 }
 
 /**
@@ -140,7 +140,7 @@ void print_syntax_error(data_shell *datash, char *input, int i, int bool)
 	_strcat(error, msg3);
 	_strcat(error, "\0");
 
-	write(STDERR_FILENO, error, length);
+	write(STDERR_FILENO, error, len);
 	free(error);
 	free(counter);
 }

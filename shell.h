@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <limits.h>
+#include <string.h>
 
 #define BUFSIZE 1024
 #define TOK_BUFSIZE 128
@@ -92,9 +93,9 @@ typedef struct builtin_s
 } builtin_t;
 
 /* lists.c functions */
-sep_list *add_sep_end(sep_list **head, char sep);
+sep_list *add_sep_node_end(sep_list **head, char sep);
 void free_sep_list(sep_list **head);
-line_list *add_line_end(line_list **head, char *line);
+line_list *add_line_node_end(line_list **head, char *line);
 void free_line_list(line_list **head);
 
 /* lists2.c functions */
@@ -161,7 +162,7 @@ int exec_line(data_shell *datash);
 int is_cdir(char *path, int *i);
 char *_which(char *cmd, char **_environ);
 int is_executable(data_shell *datash);
-int check_error_cmd(char *dir, data_shell *datash);
+int check_error_cmd(char *directory, data_shell *datash);
 int cmd_exec(data_shell *datash);
 
 /* env1.c */
